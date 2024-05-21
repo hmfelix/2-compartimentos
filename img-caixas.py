@@ -79,8 +79,8 @@ colunas_caixa_B = [offset + x%20*ds for x in particulas_caixa_B]
 axs[1].scatter(linhas_caixa_B, colunas_caixa_B)
 
 # legenda indicando as caixas
-axs[0].set_xlabel("Caixa A", fontsize=20)
-axs[1].set_xlabel("Caixa B", fontsize=20)
+axs[0].set_xlabel("Compartimento A", fontsize=20)
+axs[1].set_xlabel("Compartimento B", fontsize=20)
 
 # salvando:
 plt.savefig("img-caixas.svg", format="svg")
