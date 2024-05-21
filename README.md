@@ -1,4 +1,4 @@
-# Modelo de fluxo entre 2 compartimentos em 2D
+# Modelo de fluxo entre 2 compartimentos
 
 ## Objetivo
 
@@ -30,4 +30,59 @@ Tais probabilidades são usadas para amostrar microestados e serão explicadas e
 Referências adotadas:
 Barreto
 Philips
+André/Morgado ?
 
+O modelo considera que só pode haver fluxo de partículas de um compartimento para o outro caso exista, no microestado considerado, uma partícula na célula adjacente à abertura.
+
+Visto que o estudo se foca na evolução da concentração de partículas, não temos interesse na configuração exata das demais partículas a cada microestado, apenas na variável $C$ de cada compartimento. Assim, se pudermos calcular somente a probabilidade de uma partícula estar na célula de interesse, podemos usar uma abordagem probabilística e não precisamos simular o movimento de cada partícula. 
+
+Existem $N$ células em cada compartimento e $L^{(k)}$ partículas no compartimento $k$. A contagem $\Omega^{(k)}$ do total de microestados acessíveis a um compartimento isolado é análogo ao número de permutações de uma palavra de duas letras (p.ex., $u$ e $v$), com $N$ letras no total e $L^{(k)}$ letras de interesse (representando a presença de partículas). A fórmula para esse tipo de permutação é:
+
+$$\Omega^{(k)}(N, L^{(k)}) = \frac{N!}{L^{(k)}!\,(N-L^{(k)})!} $$
+
+Dentre esses microestados, podemos contar apenas aqueles que possuem uma partícula na célula adjacente. Dado que o estado de uma célula e uma partícula está fixo, sobram $N-1$ células e $L_k-1$ partículas a serem permutadas. A fórmula desta nova contagem $\Omega_v^{(k)}$ é análoga:
+
+$$\Omega_v^{(k)}(N, L^{(k)}) = \frac{(N-1)!}{(L^{(k)}-1)!\,[N-1-(L^{(k)}-1)]!}=\frac{(N-1)!}{(L^{(k)}-1)!\,(N-L^{(k)})!}$$
+
+, onde uso o subfixo $v$ para significar que há uma partícula "vizinha" à abertura.
+
+A probabilidade $P^{(k)}_v$ de que haja uma partícula vizinha é então a fração:
+
+$$ P^{(k)}_v = \frac{\Omega_v^{(k)}}{\Omega^{(k)}} = \frac{(N-1)!}{(L^{(k)}-1)!\,(N-L^{(k)})!} \frac{L^{(k)}!\,(N-L^{(k)})!}{N!} $$
+
+$$= \frac{\cancel{(N-1)!}}{\cancel{(L^{(k)}-1)!\,(N-L^{(k)})!}} \frac{L^{(k)}\cancel{(L^{(k)}-1)!\,(N-L^{(k)})!}}{N\cancel{(N-1)!}}$$
+
+$$ \Leftrightarrow $$
+
+$$ P^{(k)}_v = \frac{L^{(k)}}{N}$$
+
+A concentração de partículas em cada compartimento pode ser definida como
+
+$$C^{(k)}=\frac{L^{(k)}}{V}$$
+
+, onde $V$ é a área ou volume dos compartimentos.
+
+Seja $v_0$ o volume de cada célula (volume elementar), de modo que $V=N\,v_0$, podemos definir também uma referência de concentração máxima em cada compartimento, isto é, a concentração igual a uma partícula por célula, dada por:
+
+$$C_0=\frac{1}{v_0}$$
+
+Usando essas definições, podemos deixar a probabilidade de partícula vizinha em termos unicamente da concentração:
+
+$$P_v^{(k)} = \frac{L^{(k)}}{N} \frac{C_0}{C_0} = \frac{L^{(k)}}{Nv_0}\frac{1}{C_0}$$
+
+$$\Leftrightarrow$$
+
+$$P_v^{(k)}=\frac{C^{(k)}}{C_0}$$
+
+Dada uma configuração inicial de concentrações $C^{(A)}$ e $C^{(B)}$, sorteamos para cada compartimento um número aleatório entre $0$ e $1$. Se ele for maior que $P_v^{(k)}$ para ambos os compartimentos, consideramos que o passo de Monte Carlo foi tomado e passamos ao próximo passo, porque não há nenhum fluxo de partículas possível. Caso contrário, se $P_v^{(k)}$ for maior que o número sorteado para um ou ambos os compartimentos, passamos a calcular a(s) probabilidade(s) de a(s) respectiva(s) partícula(s) trocar(em) de compartimento.
+
+## Probabilidade 2: troca de compartimento
+
+
+
+
+## Otimizações
+
+### Evitando recalcular C
+
+### Algoritmo de metropolis
