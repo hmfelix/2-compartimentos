@@ -27,10 +27,10 @@ Tais probabilidades são usadas para amostrar microestados e serão explicadas e
 
 ## Probabilidade 1: presença de partícula na vizinhança da abertura
 
-Referências adotadas:
+***Referências adotadas:
 Barreto
 Philips
-André/Morgado ?
+André/Morgado ???***
 
 O modelo considera que só pode haver fluxo de partículas de um compartimento para o outro caso exista, no microestado considerado, uma partícula na célula adjacente à abertura.
 
@@ -74,11 +74,22 @@ $$\Leftrightarrow$$
 
 $$P_v^{(k)}=\frac{C^{(k)}}{C_0}$$
 
-Dada uma configuração inicial de concentrações $C^{(A)}$ e $C^{(B)}$, sorteamos para cada compartimento um número aleatório entre $0$ e $1$. Se ele for maior que $P_v^{(k)}$ para ambos os compartimentos, consideramos que o passo de Monte Carlo foi tomado e passamos ao próximo passo, porque não há nenhum fluxo de partículas possível. Caso contrário, se $P_v^{(k)}$ for maior que o número sorteado para um ou ambos os compartimentos, passamos a calcular a(s) probabilidade(s) de a(s) respectiva(s) partícula(s) trocar(em) de compartimento.
+, onde o termo da direita também pode ser pensado como a concentração normalizada.
+
+Dada uma configuração inicial de concentrações $C^{(A)}$ e $C^{(B)}$, sorteamos para cada compartimento um número aleatório entre $0$ e $1$. Se ele for maior que $P_v^{(k)}$ para ambos os compartimentos, consideramos que o passo de Monte Carlo foi tomado e passamos ao próximo passo, porque não há nenhum fluxo de partículas possível no microestado atual. Caso contrário, se $P_v^{(k)}$ for maior que o número sorteado para um ou ambos os compartimentos, passamos a calcular a(s) probabilidade(s) de a(s) respectiva(s) partícula(s) trocar(em) de compartimento.
 
 ## Probabilidade 2: troca de compartimento
 
+A probabilidade $P_p$ de haver troca de compartimento é determinada por aspectos teóricos da termodinâmica do modelo. Adoto o subfixo $p$ para denotar a situação em que há a "passagem" da partícula.
 
+Entre dois microestados com diferentes concentrações $C^{(A)}$ e $C^{(B)}$, haverá níveis diferentes de energia livre. A energia livre de cada microestado é dada pela equação:
+
+$$ eq energia livre$$
+
+
+
+
+## Possibilidade de uso do algoritmo de Metropolis
 
 
 ## Otimizações
@@ -86,3 +97,11 @@ Dada uma configuração inicial de concentrações $C^{(A)}$ e $C^{(B)}$, sortea
 ### Evitando recalcular C
 
 ### Algoritmo de metropolis
+
+
+
+## Possíveis extensões futuras
+
+### Cotransporte
+
+### Gradiente eletrostático
