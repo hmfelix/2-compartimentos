@@ -103,11 +103,12 @@ $$ \frac{P_b}{P_a} = \frac{\frac{e^{-\beta E_b}}{Z}}{\frac{e^{-\beta E_a}}{Z}} =
 Em suma:
 
 $$
-P_p^{(k)} = 
-\begin{cases} 
+P_p^{(k)} = \left\{
+\begin{array}{ll}
 1 & \text{se } \Delta \mu_b < \Delta \mu_a \\
 e^{-\beta (\Delta \mu_b - \Delta \mu_a)} & \text{se } \Delta \mu_b \geq \Delta \mu_a 
-\end{cases}
+\end{array}
+\right.
 $$
 
 Para cada partícula vizinha à abertura no microestado considerado, sorteamos um número entre $0$ e $1$ e comparamos com essa probabilidade. Se o número é $<P_p$, a partícula passa, caso contrário não passa.
