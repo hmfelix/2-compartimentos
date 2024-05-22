@@ -100,7 +100,7 @@ $$ \frac{P_b}{P_a} = \frac{\frac{e^{-\beta E_b}}{Z}}{\frac{e^{-\beta E_a}}{Z}} =
 
 , em que $Z$ é a função de partição. Nota-se que a exponencial acima é $<1$ porque se aplica apenas ao caso em que $\Delta \mu_b > \Delta \mu_a$. Assim, podemos tratá-la como a probabilidade $P_p$ de haver passagem nesse caso. 
 
-Em suma:
+Em suma, a expressão para P_p^{(k)} é:
 
 $$
 P_p^{(k)} = \left\{
