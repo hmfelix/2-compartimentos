@@ -1,3 +1,5 @@
+# script para gerar a imagem da configuracao espacial do modelo
+
 from matplotlib import pyplot as plt
 import random
 

@@ -82,26 +82,73 @@ Dada uma configuração inicial de concentrações $C^{(A)}$ e $C^{(B)}$, sortea
 
 A probabilidade $P_p$ de haver troca de compartimento é determinada por aspectos teóricos da termodinâmica do modelo. Adoto o subfixo $p$ para denotar a situação em que há a "passagem" da partícula.
 
-Entre dois microestados com diferentes concentrações $C^{(A)}$ e $C^{(B)}$, haverá níveis diferentes de energia livre. A energia livre de cada microestado é dada pela equação:
+Entre dois microestados com diferentes concentrações $C^{(A)}$ e $C^{(B)}$, haverá níveis diferentes de energia livre. Visto que não há diferenças de temperatura ou potencial eletrostático, a diferença $\Delta G$ de energia livre entre os compartimentos é dada pela diferença $\Delta \mu$ de pontencial químico:
 
-$$ eq energia livre$$
+$$\Delta \mu = k_B T \ln{\left( \frac{C^{(A)}}{C^{(B)}}\right) }$$
+
+, sendo $k_B$ a constante de Boltzmann e $T$ a temperatura do sistema (que presumo constante).
+
+***DÚVIDA: O DELTA ACIMA É A ENERGIA LIVRE?***
+
+***DÚVIDA: O PROCEDIMENTO ABAIXO É O ALGORITMO DE METROPOLIS? É LEGÍTIMO?***
+
+Pela minimização de energia livre, é de se supor que no equilíbrio $\Delta \mu \rightarrow 0$. Para determinar se haverá passagem da partícula pela abertura, primeiro comparo a energia $E_a$ do microestado $a$ anterior à passagem com a energia $E_b$ microestado $b$ posterior à passagem. Se $E_a > E_b$, o que equivale a $\Delta \mu_a > \Delta \mu_b$, defino $P_p = 1$. Ou seja, a passagem é feita e as concentrações de cada compartimento são atualizadas.
+
+No entanto, se a energia posterior é maior, ainda existe uma probabilidade de a partícula passar. Da mecânica estatística, em sistemas mantidos a temperatura constante, a probabilidade de o sistema se encontrar em certo microestado é dada pela distribuição de Bolzmann. Podemos comparar a probabilidade $P_a$ de um microestado anterior com a probabilidade $P_b$ do microestado posterior:
+
+$$ \frac{P_b}{P_a} = \frac{\frac{e^{-\beta E_b}}{Z}}{\frac{e^{-\beta E_a}}{Z}} = e^{-\beta (\Delta \mu_b - \Delta \mu_a)} $$
+
+, em que $Z$ é a função de partição. Nota-se que a exponencial acima é $<1$ porque se aplica apenas ao caso em que $\Delta \mu_b > \Delta \mu_a$. Assim, podemos tratá-la como a probabilidade $P_p$ de haver passagem nesse caso. 
+
+Em suma:
+
+$$
+P_p^{(k)} = 
+\begin{cases} 
+1 & \text{se } \Delta \mu_b < \Delta \mu_a \\
+e^{-\beta (\Delta \mu_b - \Delta \mu_a)} & \text{se } \Delta \mu_b \geq \Delta \mu_a 
+\end{cases}
+$$
+
+Para cada partícula vizinha à abertura no microestado considerado, sorteamos um número entre $0$ e $1$ e comparamos com essa probabilidade. Se o número é $<P_p$, a partícula passa, caso contrário não passa.
+
+## Comportamento das partículas na abertura e nas células vizinhas
+
+Vale considerar brevemente a situação em que há duas partículas na vizinhança da abertura, uma no compartimento $A$ e outra no compartimento $B$. Pode-se cogitar 4 casos: 
+
+1. Nenhuma passa;
+2. Ambas passam, usando a propriedade de mão dupla da abertura;
+3. Apenas a partícula do compartimento $A$ passa;
+4. Apenas a partícula do compartimento $B$ passa.
+
+Visto que $P_p = 1$ quando a energia posterior à passagem é menor, o caso 1 não é uma possibilidade, pois alguma das duas passagens ($A \rightarrow B$ ou $A\leftarrow B$) implicará menor energia posterior (ou seja, nessa situação, uma das partículas sempre irá passar). Se ambas passam (caso 2), a energia posterior é igual à anterior. Se apenas uma passa (casos 3 ou 4), então a propriedade de mão dupla não é usada e o caso se reduz à existência de apenas uma partícula na vizinhança. 
+
+Vale também esclarecer como é tratada a ocupação das células vizinhas. Após a passagem de uma partícula, não se considera que ela passa a ocupar a célula vizinha à abertura no compartimento oposto. Considera-se que a partícula é simplesmente liberada em qualquer outra célula do compartimento oposto.
+
+Isso tem duas consequências.
+
+Primeiro, na situação em que há duas partículas, uma partícula não atrapalha a passagem da outra, ou seja, se há a passagem de apenas uma partícula, a partícula ocupando a célula vizinha do compartimento oposto não impede a passagem da primeira. Em conjunto com o que foi explicado acima sobre a propriedade de mão dupla, isso significa que tal propriedade não traz nenhuma complexidade computacional adicional, sendo simplesmente equivalente à existência de dois canais de mão única, um em cada sentido.
+
+Segundo, o microestado posterior não é automaticamente caracterizado pela presença de uma partícula na célula vizinha à abertura do compartimento receptor. Esta presença é determinada sempre por $P_v^{(k)}$. Isso reflete a simples intuição física de que uma partícula que acaba de atravessar tem momento em sentido contrário ao compartimento de onde saiu. Computacionalmente, me parece que essa escolha possui a vantagem de que não é preciso manter registro do estado do microestado posterior para uso no passo futuro de Monte Carlo evitando uma comparação condicional, mas possui também a desvantagem de que um número aleatório deve ser sempre gerado. É possível que esta abordagem não seja a escolha mais ótima, e de um ponto de vista físico cogito se a intuição de momento estaria apropriada, mas essas questões permanecem como exercício de investigação futuro.
+
+## Cálculo de $C^{(k)}$
+
+Como o modelo não registra a configuração específica de cada microestado, mas apenas as concentrações dos compartimentos, só é necessário partir de uma configuração inicial $(C^{(A)}, C^{(B)})$ de concentrações e alterar tais valores sempre que houver a passagem de uma partícula.
+
+Para posterior visualização da evolução das concentrações, não é conveniente salvar as concentrações a cada passo de Monte Carlo porque é realizado um número muito grande de passos. O registro é feito periodicamente a cada $x$ passos ("coleta de dados" do experimento).
+
+## Resultados
 
 
 
+## A inserir futuramente
 
-## Possibilidade de uso do algoritmo de Metropolis
+### Demonstração das equações da probabilidade 2
 
+### Possibilidade de uso do algoritmo de Metropolis
 
-## Otimizações
+### Possíveis extensões futuras
 
-### Evitando recalcular C
+#### Cotransporte
 
-### Algoritmo de metropolis
-
-
-
-## Possíveis extensões futuras
-
-### Cotransporte
-
-### Gradiente eletrostático
+#### Gradiente eletrostático
