@@ -303,14 +303,14 @@ int main()
     // N = 1000000; C_A = 0.05; C_B = 0.025
     // Apos testes, uso M = 1000000
     std::cout << "Iniciada simulacao da configuracao 7\n";
-    modelo_completo("resultados brutos/config-7.csv", "resultados consolidados (medias)/config-7.csv", 100, 1000000, 0.5, 0.025, 10000000);
+    modelo_completo("resultados brutos/config-7.csv", "resultados consolidados (medias)/config-7.csv", 100, 1000000, 0.05, 0.025, 10000000);
     std::cout << "Concluida simulacao da configuracao 7\n\n";
 
     // Configuracao 8: 
     // N = 1000000; C_A = 0.05; C_B = 0.0005
     // Apos testes, uso M = 1000000
     std::cout << "Iniciada simulacao da configuracao 8\n";
-    modelo_completo("resultados brutos/config-8.csv", "resultados consolidados (medias)/config-8.csv", 100, 1000000, 0.5, 0.0005, 10000000);
+    modelo_completo("resultados brutos/config-8.csv", "resultados consolidados (medias)/config-8.csv", 100, 1000000, 0.05, 0.0005, 10000000);
     std::cout << "Concluida simulacao da configuracao 8\n\n";
 
     return 0;
