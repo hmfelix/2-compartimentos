@@ -16,7 +16,7 @@ A figura abaixo ilustra a configuração espacial do modelo:
 
 ![](img/img-caixas.svg)
 
-*Configuração espacial do modelo, no caso em que o lado de cada compartimento é $\sqrt{N}=20$, a concentração normalizada de $A$ é $0.2$ e de $B$ é $0.05$. Células imediatamente adjacentes à abertura figuram com coloração destacada.*
+*Configuração espacial do modelo, no caso em que o lado de cada compartimento é $`\sqrt{N}=20`$, a concentração normalizada de $`A`$ é $`0.2`$ e de $`B`$ é $`0.05`$. Células imediatamente adjacentes à abertura figuram com coloração destacada.*
 
 A simulação consiste em um processo de Monte Carlo em que vários microestados do sistema são amostrados por meio de uma cadeia de Markov. A partir de uma configuração inicial com diferentes concentrações da partícula em cada compartimento, podem ser calculados dois conjuntos de probabilidades:
 
@@ -150,7 +150,7 @@ Conforme ilustrado na figura, a simulação gerou uma convergência aparentement
 
 ![](img/resultados.svg)
 
-*Resultados nas diferentes configurações. $N\equiv$ número de células em cada compartimento, $C_{norm}^{(k)}\equiv$ concentração inicial no compartimento $k$.*
+*Resultados nas diferentes configurações. $`N\equiv`$ número de células em cada compartimento, $`C_{norm}^{(k)}\equiv`$ concentração inicial no compartimento $`k`$.*
 
 No entanto, é de se notar que nas configurações 3 e 4 não fizeram $\Delta C \rightarrow 0$, e, portanto, tampouco $\Delta \mu \rightarrow 0$, o que não condiz com o esperado. Cogito que a explicação para isso esteja no fato de que essas configurações são as de menor número $L$ de partículas, pois têm o menor tamanho total $N$ de células em cada compartimento e as menores concentrações normalizadas iniciais. O que pode estar acontecendo é a influência do erro da aproximação de Stirling, que só é válida para $L \gg 1$. 
 
