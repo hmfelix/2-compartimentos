@@ -1,5 +1,6 @@
 # script para gerar a imagem da configuracao espacial do modelo
 
+import os
 from matplotlib import pyplot as plt
 import random
 
@@ -85,5 +86,5 @@ axs[0].set_xlabel("Compartimento A", fontsize=20)
 axs[1].set_xlabel("Compartimento B", fontsize=20)
 
 # salvando:
-plt.savefig("img-caixas.svg", format="svg")
+plt.savefig(os.path.join(os.path.dirname(os.getcwd()), "img/img-caixas.svg"), format="svg")
 plt.close()
